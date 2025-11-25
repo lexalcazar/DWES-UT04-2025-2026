@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "poetry install"
+version = "0.1.0"
+description = "Tarea-DWES-03"
+authors = ["Alexander Alcázar <aalcazarprogramacion@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^5.2.8"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
