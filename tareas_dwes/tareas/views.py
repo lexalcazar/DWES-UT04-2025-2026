@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
-from tareas_dwes.tareas.models import Tarea
+from .models import Tarea
+
 
 
 # Create your views here.

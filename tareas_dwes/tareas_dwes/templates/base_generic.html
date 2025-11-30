@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Aplicación de Tareas{% endblock %}</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: black;
+            color: white;
+            padding: 1rem;
+        }
+     
+        main {
+            padding: 1.5rem;
+        }
+        footer {
+            background-color:black;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9em;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gestor de Tareas</h1>
+    </header>
+    <main>
+          {% block content %}
+        <!-- Aquí irá el contenido de cada página -->
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; DWES-2025-2026 </p>
+    </footer>
+</body>
+</html>

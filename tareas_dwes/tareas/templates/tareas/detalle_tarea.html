@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ tarea.titulo }}</h1>
+
+  
+  <p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
+  <p><strong>Fecha de creación:</strong> {{ tarea.fecha_creacion }}</p>
+  <p><strong>Fecha de recordatorio:</strong> {{ tarea.fecha_recordatorio }}</p>
+  <p><strong>Completada:</strong>
+    {% if tarea.completada %}
+        Sí
+    {% else %}
+        No
+    {% endif %}
+  </p>
+{% endblock %}
