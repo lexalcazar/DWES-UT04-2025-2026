@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+Listado de usuarios
+{% endblock %}
+
+{% block content %}
+
+<h2>Alumnado</h2>
+<ul>
+  {% for alumno in alumnos %}
+    <li>
+      {{ alumno.nombre }} {{ alumno.apellidos }} – {{ alumno.email }}
+    </li>
+  {% empty %}
+    <li>No hay alumnos registrados</li>
+  {% endfor %}
+</ul>
+
+<h2>Profesorado</h2>
+<ul>
+  {% for profesor in profesores %}
+    <li>
+      {{ profesor.nombre }} {{ profesor.apellidos }} – {{ profesor.email }}
+    </li>
+  {% empty %}
+    <li>No hay profesores registrados</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
