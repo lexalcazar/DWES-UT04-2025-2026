@@ -5,3 +5,6 @@
 
 Clonamos repositorio tarea 3 DWES, y lo añadomos al repositorio tema 4, para la práctica 4.
 
+He probado ha crear los modelos y una vista en esta rama (Desarrollo), lo he hecho mal tenia mal planteado el ER.
+
+Tengo que darle una vuelta, además creo la rama pruebas para hacer el bruto ahí.
