@@ -30,6 +30,46 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "psycopg"
+version = "3.3.2"
+description = "PostgreSQL database adapter for Python"
+category = "main"
+optional = false
+python-versions = ">=3.10"
+
+[package.dependencies]
+psycopg-binary = {version = "3.3.2", optional = true, markers = "implementation_name != \"pypy\" and extra == \"binary\""}
+typing-extensions = {version = ">=4.6", markers = "python_version < \"3.13\""}
+tzdata = {version = "*", markers = "sys_platform == \"win32\""}
+
+[package.extras]
+c = ["psycopg-c (==3.3.2)"]
+binary = ["psycopg-binary (==3.3.2)"]
+pool = ["psycopg-pool"]
+test = ["anyio (>=4.0)", "mypy (>=1.19.0)", "pproxy (>=2.7)", "pytest (>=6.2.5)", "pytest-cov (>=3.0)", "pytest-randomly (>=3.5)"]
+dev = ["ast-comments (>=1.1.2)", "black (>=24.1.0)", "codespell (>=2.2)", "cython-lint (>=0.16)", "dnspython (>=2.1)", "flake8 (>=4.0)", "isort[colors] (>=6.0)", "isort-psycopg", "mypy (>=1.19.0)", "pre-commit (>=4.0.1)", "types-setuptools (>=57.4)", "types-shapely (>=2.0)", "wheel (>=0.37)"]
+docs = ["Sphinx (>=5.0)", "furo (==2022.6.21)", "sphinx-autobuild (>=2021.3.14)", "sphinx-autodoc-typehints (>=1.12)"]
+
+[[package]]
+name = "psycopg-binary"
+version = "3.3.2"
+description = "PostgreSQL database adapter for Python -- C optimisation distribution"
+category = "main"
+optional = false
+python-versions = ">=3.10"
+
+[[package]]
+name = "python-dotenv"
+version = "1.2.1"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+category = "main"
+optional = false
+python-versions = ">=3.9"
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 name = "sqlparse"
 version = "0.5.3"
 description = "A non-validating SQL parser."
@@ -60,11 +100,14 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "11517c34719daea50634c9dded2f173c4bbe1f9de8a0d16f839219c0781b23d2"
+content-hash = "3556ee8470643583e13579be348274e2b829564140f812f12d567b54bfe77de8"
 
 [metadata.files]
 asgiref = []
 django = []
+psycopg = []
+psycopg-binary = []
+python-dotenv = []
 sqlparse = []
 typing-extensions = []
 tzdata = []

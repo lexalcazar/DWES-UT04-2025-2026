@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
-from .models import Tarea, Usuario
+#from .models import Tarea, Usuario
 
 
 
@@ -12,11 +12,11 @@ from .models import Tarea, Usuario
     #     context_object_name = "tarea"
 
 # Vista listar usuarios
-def listar_usuarios(request):
-    alumnos = Usuario.objects.filter(rol='alumno')
-    profesores = Usuario.objects.filter(rol='profesor')
+#    def listar_usuarios(request):
+#        alumnos = Usuario.objects.filter(rol='alumno')
+#        profesores = Usuario.objects.filter(rol='profesor')
 
-    return render(request, 'usuarios/listar_usuarios.html', {
-        'alumnos': alumnos,
-        'profesores': profesores
-    })
+#        return render(request, 'usuarios/listar_usuarios.html', {
+#            'alumnos': alumnos,
+#            'profesores': profesores
+#        })
