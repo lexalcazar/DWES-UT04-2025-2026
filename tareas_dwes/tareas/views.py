@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Usuario
 #from .models import Tarea, Usuario
 
 
@@ -20,3 +23,14 @@ from django.views.generic import DetailView
 #            'alumnos': alumnos,
 #            'profesores': profesores
 #        })
+
+
+class ListaUsuariosView(ListView):
+    model = Usuario
+    template_name = "tareas/listar_usuarios.html"
+    context_object_name = "usuarios"
+
+    def get_queryset(self):
+        return Usuario.objects.filter(
+            rol__in=["alumno", "profesor"]
+        ).order_by("rol", "last_name", "first_name", "username")

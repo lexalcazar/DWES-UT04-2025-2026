@@ -59,6 +59,14 @@ optional = false
 python-versions = ">=3.10"
 
 [[package]]
+name = "python-decouple"
+version = "3.8"
+description = "Strict separation of settings from code."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "python-dotenv"
 version = "1.2.1"
 description = "Read key-value pairs from a .env file and set them as environment variables"
@@ -100,13 +108,14 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "3556ee8470643583e13579be348274e2b829564140f812f12d567b54bfe77de8"
+content-hash = "fe2472c4fea4571866a79544e294caa7cade9c649221f2509ce0dfcf1e9d7d16"
 
 [metadata.files]
 asgiref = []
 django = []
 psycopg = []
 psycopg-binary = []
+python-decouple = []
 python-dotenv = []
 sqlparse = []
 typing-extensions = []

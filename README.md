@@ -9,4 +9,7 @@ Creo esta rama para hacer pruebas gordas sin tener miedo de romper todo.
 
 ### 14/12/25
 
-conectamos con base de datos y probamos el modelo usuario
+Conectamos con base de datos y probamos el modelo usuario
+Conseguimos hacer un modelo usuario
+Conseguimos una pequeña lista y funciona
+
