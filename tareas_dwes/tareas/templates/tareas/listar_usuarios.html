@@ -5,27 +5,35 @@ Listado de usuarios
 {% endblock %}
 
 {% block content %}
+<h2>Listado de profesorado y alumnado</h2>
 
-<h2>Alumnado</h2>
-<ul>
-  {% for alumno in alumnos %}
-    <li>
-      {{ alumno.nombre }} {{ alumno.apellidos }} – {{ alumno.email }}
-    </li>
-  {% empty %}
-    <li>No hay alumnos registrados</li>
-  {% endfor %}
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Rol</th>
+      <th>Usuario</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Email</th>
+      <th>DNI</th>
+    </tr>
+  </thead>
 
-<h2>Profesorado</h2>
-<ul>
-  {% for profesor in profesores %}
-    <li>
-      {{ profesor.nombre }} {{ profesor.apellidos }} – {{ profesor.email }}
-    </li>
-  {% empty %}
-    <li>No hay profesores registrados</li>
-  {% endfor %}
-</ul>
-
+  <tbody>
+    {% for u in usuarios %}
+      <tr>
+        <td>{{ u.get_rol_display }}</td>
+        <td>{{ u.username }}</td>
+        <td>{{ u.first_name }}</td>
+        <td>{{ u.last_name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.dni }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="6">No hay usuarios registrados.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}
