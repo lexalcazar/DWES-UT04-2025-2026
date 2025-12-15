@@ -10,6 +10,16 @@ Creo esta rama para hacer pruebas gordas sin tener miedo de romper todo.
 ### 14/12/25
 
 Conectamos con base de datos y probamos el modelo usuario
+
 Conseguimos hacer un modelo usuario
+
 Conseguimos una pequeña lista y funciona
+
+### 15/12/25
+
+Vamos ha hacer unos cambios para pulir el modelo usuario
+
+Hago un formulario, la vista, la url y la template
+
+Me cargo la base de datos y la conexion en DBeaver, perfecto.
 

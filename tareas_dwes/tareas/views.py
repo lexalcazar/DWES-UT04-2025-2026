@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from pyexpat.errors import messages
+from urllib import request
+from django.shortcuts import redirect, render
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import UsuarioForm
+
 from .models import Usuario
 #from .models import Tarea, Usuario
 
@@ -34,3 +38,23 @@ class ListaUsuariosView(ListView):
         return Usuario.objects.filter(
             rol__in=["alumno", "profesor"]
         ).order_by("rol", "last_name", "first_name", "username")
+
+# Pruebas
+def crear_usuario(request):
+    if request.method == "POST":
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            usuario = form.save(commit=False)
+
+            # Si tu Usuario usa email como USERNAME_FIELD y has quitado username,
+            # y en tu modelo aún existe el campo "username" heredado (pero anulado),
+            # no hace falta asignarlo.
+            # Si tuvieras algún campo extra, lo pondrías aquí.
+
+            usuario.save()
+            messages.success(request, "Usuario creado correctamente.")
+            return redirect("listar_usuarios")
+    else:
+        form = UsuarioForm()
+
+    return render(request, "tareas/crear_usuario.html", {"form": form})
