@@ -1,0 +1,49 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Alta de nuevo usuario</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Datos personales -->
+        <h4 class="mt-4">Datos personales</h4>
+
+        <div class="row">
+            <div class="col-md-6">
+                {{ form.first_name}}
+            </div>
+            <div class="col-md-6">
+                {{ form.last_name}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                {{ form.email}}
+            </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form.password}}
+            </div>
+            <div class="col-md-6">
+                {{ form.dni}}
+            </div>
+        </div>
+
+        <!-- Rol -->
+        <h4 class="mt-4">Rol del usuario</h4>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form.rol}}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">
+            Guardar usuario
+        </button>
+    </form>
+</div>
+{% endblock %}

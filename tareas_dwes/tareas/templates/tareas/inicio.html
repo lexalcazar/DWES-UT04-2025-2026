@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% block content%}
+<h1>Inicio</h1>
+<div>
+    <a href="{% url 'lista_usuarios' %}">
+        <h2>Listar Usuarios</h2>
+    </a>
+</div>
+<div>
+    <a href="{% url 'crear_usuario' %}">
+        <h2>Crear Usuario</h2>
+    </a>
+</div>
+{% endblock%}
