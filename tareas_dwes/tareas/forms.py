@@ -7,15 +7,19 @@ class UsuarioForm(forms.ModelForm):
         max_length=9,
         validators=[RegexValidator(r'^\d{8}[A-Za-z]$', 'El DNI debe tener 8 dígitos seguidos de una letra')]
     )
+    password = forms.CharField(
+        label="Contraseña",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Contraseña'})
+     )
 
     class Meta:
         model = Usuario
-        fields = ['first_name', 'last_name', 'email', 'dni', 'rol']
+        fields = ['first_name', 'last_name', 'email','password' ,'dni', 'rol']
         widgets = {
             'first_name': forms.TextInput(attrs={'placeholder': 'Alex'}),
             'last_name': forms.TextInput(attrs={'placeholder': 'Alcázar Cecilia'}),
             'email': forms.EmailInput(attrs={'placeholder': 'usuario@fpvirtualaragon.com'}),
-            'dni': forms.TextInput(attrs={'placeholder': '12345678Z'}),
+            'dni': forms.TextInput(attrs={'placeholder': 'Introduzca DNI'}),
             'rol': forms.Select(attrs={'class': 'form-select'}),
         }
 

@@ -23,3 +23,13 @@ Hago un formulario, la vista, la url y la template
 
 Me cargo la base de datos y la conexion en DBeaver, perfecto.
 
+### 16/12/25
+
+Darío arregla la conexión a postgre
+
+Hago migraciones y conecto con la base de datos
+
+Consigo hacer funcionar el formulario, guarda datos
+
+Consigo traer de la base de datos la lista de usuarios
+
