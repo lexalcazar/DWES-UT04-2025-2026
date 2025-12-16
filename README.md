@@ -37,3 +37,5 @@ Consigo hacer funcionar el formulario, guarda datos
 
 Consigo traer de la base de datos la lista de usuarios
 
+Pulo cosas del front, y añado página de inicio en /tareas
+

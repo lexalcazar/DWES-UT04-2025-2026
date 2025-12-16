@@ -31,7 +31,7 @@ def crear_usuario(request):
 
             usuario.save()
             messages.success(request, "Usuario creado correctamente.")
-            return redirect("lista_usuarios")
+            return redirect("tareas_index")
      else:
         form = UsuarioForm()
 

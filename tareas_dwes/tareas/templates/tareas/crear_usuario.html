@@ -13,23 +13,23 @@
 
         <div class="row">
             <div class="col-md-6">
-                {{ form.first_name}}
+               <label>Nombre:   </label>{{ form.first_name}}
             </div>
             <div class="col-md-6">
-                {{ form.last_name}}
+               <label>Apellidos: </label>{{ form.last_name}}
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                {{ form.email}}
+               <label>e-mail: </label>{{ form.email}}
             </div>
         <div class="row">
             <div class="col-md-6">
-                {{ form.password}}
+                <label>Conraseña: </label>{{ form.password}}
             </div>
             <div class="col-md-6">
-                {{ form.dni}}
+                <label>DNI: </label>{{ form.dni}}
             </div>
         </div>
 
@@ -45,5 +45,11 @@
             Guardar usuario
         </button>
     </form>
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'tareas_index' %}">
+            <button type="button">Volver</button>
+        </a>
+    </div>
 </div>
 {% endblock %}

@@ -11,7 +11,6 @@ Listado de usuarios
   <thead>
     <tr>
       <th>Rol</th>
-      <th>Usuario</th>
       <th>Nombre</th>
       <th>Apellidos</th>
       <th>Email</th>
@@ -23,7 +22,6 @@ Listado de usuarios
     {% for u in usuarios %}
       <tr>
         <td>{{ u.get_rol_display }}</td>
-        <td>{{ u.username }}</td>
         <td>{{ u.first_name }}</td>
         <td>{{ u.last_name }}</td>
         <td>{{ u.email }}</td>
@@ -36,4 +34,9 @@ Listado de usuarios
     {% endfor %}
   </tbody>
 </table>
+<div style="margin-top: 30px;">
+  <a href="{% url 'tareas_index' %}">
+    <button type="button">Volver</button>
+  </a>
+</div>
 {% endblock %}
