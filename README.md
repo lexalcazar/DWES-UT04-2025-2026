@@ -7,6 +7,10 @@ Clonamos repositorio tarea 3 DWES, y lo añadomos al repositorio tema 4, para la
 
 Creo esta rama para hacer pruebas gordas sin tener miedo de romper todo.
 
+He probado ha crear los modelos y una vista en esta rama (Desarrollo), lo he hecho mal tenia mal planteado el ER.
+
+Tengo que darle una vuelta, además creo la rama pruebas para hacer el bruto ahí.
+
 ### 14/12/25
 
 Conectamos con base de datos y probamos el modelo usuario
@@ -33,6 +37,3 @@ Consigo hacer funcionar el formulario, guarda datos
 
 Consigo traer de la base de datos la lista de usuarios
 
-He probado ha crear los modelos y una vista en esta rama (Desarrollo), lo he hecho mal tenia mal planteado el ER.
-
-Tengo que darle una vuelta, además creo la rama pruebas para hacer el bruto ahí.
