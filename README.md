@@ -5,8 +5,8 @@ Vistas
 
 - [] Vista en la que un alumno/profesor pueda ver sus datos.
 - [X] Vista con el listado de todo el alumnado/profesorado.
-- [] Vista en la que un alumno puede ver todas las tareas que ha creado o colabora.
-- [] Vista en la que un profesor puede ver todas las tareas que requieren su validación.
+- [X] Vista en la que un alumno puede ver todas las tareas que ha creado o colabora.
+- [X] Vista en la que un profesor puede ver todas las tareas que requieren su validación.
 
 
 Formularios
@@ -56,4 +56,18 @@ Consigo traer de la base de datos la lista de usuarios
 Pulo cosas del front, y añado página de inicio en /tareas
 
 Merge con Desarrollo para tener en pruebas todo y seguir trabajando
+
+### 17/12/25
+
+Hago los modelos en la rama pruebas y empiezo la view de  buscar_dni
+
+### 18/12/25
+
+Acabo view buscar_dni, sigo con ver_tareas_por_dni
+
+Migro los modelos a bd pruebas
+
+Y vista funcionando tanto con alumno como con profesor para ver tareas asignadas o 
+que necesitan validacion de u profesor
+
 

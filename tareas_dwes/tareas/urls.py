@@ -12,5 +12,7 @@ urlpatterns = [
   path("", views.tareas_index, name="tareas_index"),
   path("usuarios/", views.ListaUsuariosView.as_view(), name="lista_usuarios"),
   path("usuarios/crear/", views.crear_usuario, name="crear_usuario"),
+  path("mis-tareas/", views.buscar_dni, name="buscar_por_dni"),
+  path("mis-tareas/<str:dni>/", views.ver_tareas_por_dni, name="mis_tareas"),
+  path("validaciones/<str:dni>/", views.validacion_profesor, name="validaciones"),
 ]
-

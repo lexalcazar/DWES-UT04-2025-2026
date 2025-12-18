@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Tareas de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
+<h2> {{ usuario.rol }} </h2>
+<h3>Tareas individuales</h3>
+<ul>
+    {% for tarea in tareas_individuales %}
+        <li>{{ tarea.titulo }} - entrega: {{ tarea.fecha_entrega }}</li>
+    {% empty %}
+     <li>No tienes tareas individuales</li>
+    {% endfor %}
+</ul>
+
+<h3>Tareas grupales</h3>
+<ul>
+    {% for tarea in tareas_individuales %}
+        <li>{{ tarea.titulo }} - entrega: {{ tarea.fecha_entrega }}</li>
+    {% empty %}
+     <li>No tienes tareas grupales</li>
+
+    {% endfor %}
+</ul>
+
+<h3>Tareas creadas</h3>
+<ul>
+    {% for tareas in tareas_creadas%}
+        <li>{{ tarea.titulo }} - entrega: {{ tarea.fecha_entrega }}</li>
+        {% empty %}
+        <li>No tienes tareas creadas</li>
+        {% endfor %}
+
+</ul>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'buscar_por_dni' %}">
+        <button type="button">Volver</button>
+    </a>
+</div>
+{% endblock %}
+

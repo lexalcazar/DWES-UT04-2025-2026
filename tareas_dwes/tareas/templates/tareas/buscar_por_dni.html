@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Consultar mis tareas</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="dni">Introduce tu DNI:</label>
+    <input type="text" name="dni" id="dni" placeholder="12345678Z" required>
+
+    <button type="submit">Ver mis tareas</button>
+</form>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'tareas_index' %}">
+        <button type="button">Volver</button>
+    </a>
+</div>
+{% endblock %}

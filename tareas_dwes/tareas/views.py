@@ -1,11 +1,16 @@
-from django.shortcuts import redirect, render
+from gc import get_objects
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from django.contrib import messages
 from .forms import UsuarioForm
-from .models import Usuario
+from .models import Tarea, Usuario
+
+# vista para el index.html
 
 def tareas_index(request):
     return render(request, "tareas/inicio.html")
+
+# vista para listar a los usuarios de la aplicacion
 
 class ListaUsuariosView(ListView):
     model = Usuario
@@ -19,6 +24,7 @@ class ListaUsuariosView(ListView):
             .order_by("rol", "last_name", "first_name", "email")
         )
 
+# vista para crear un usuario
 
 def crear_usuario(request):
      if request.method == "POST":
@@ -36,3 +42,66 @@ def crear_usuario(request):
         form = UsuarioForm()
 
      return render(request, "tareas/crear_usuario.html", {"form": form})
+
+# Vista para buscar una tarea por DNI del creador o usuario asignado
+
+def buscar_dni(request):
+    if request.method == "POST":
+        dni = request.POST.get("dni")
+        usuario = get_object_or_404(Usuario, dni=dni)
+        if usuario.rol == "alumno":
+            return redirect("mis_tareas", dni=dni)
+        else:
+            return redirect("validaciones", dni=dni)
+
+    return render(request,"tareas/buscar_por_dni.html")
+
+# Vista tareas de un alumno creadas o asignadas
+
+def ver_tareas_por_dni(request, dni):
+    usuario = get_object_or_404(Usuario, dni=dni)
+     
+    tareas_individuales = Tarea.objects.filter(
+            tareaindividual__alumno_asignado=usuario
+        )
+
+    tareas_grupales = Tarea.objects.filter(
+            tareagrupal__alumnos=usuario
+        )
+
+    tareas_creadas = Tarea.objects.filter(creado_por=usuario)
+
+    return render(
+        request,
+        "tareas/mis_tareas.html",
+        {
+            "usuario": usuario,
+            "tareas_individuales": tareas_individuales,
+            "tareas_grupales": tareas_grupales,
+            "tareas_creadas": tareas_creadas,
+            
+        }
+    )
+
+
+# Vista un profero ve las tareas que requieren su validacion
+
+def validacion_profesor(request, dni):
+
+    profesor = get_object_or_404(Usuario, dni=dni)  
+    validador=Tarea.objects.filter(tareaevaluable__validada_por=profesor)
+
+    return render(
+        request,
+        "tareas/validaciones.html",
+        {
+            "profesor": profesor,
+            "tareas_para_validar": validador,
+            
+        }
+    )
+ 
+    
+
+    
+
