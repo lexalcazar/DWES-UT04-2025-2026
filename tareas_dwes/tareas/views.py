@@ -2,7 +2,7 @@ from gc import get_objects
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from django.contrib import messages
-from .forms import UsuarioForm
+from .forms import CrearTareaIndividualForm, UsuarioForm
 from .models import Tarea, Usuario
 
 # vista para el index.html
@@ -101,7 +101,44 @@ def validacion_profesor(request, dni):
         }
     )
  
-    
+# Vista para buscar datos personales
+def buscar_datos(request):
+    if request.method == "POST":
+        dni = request.POST.get("dni")
+        usuario = get_object_or_404(Usuario, dni=dni)
+        return redirect("mis_datos", dni=dni)
+    return render(request,"tareas/buscar_datos_personales.html")
 
-    
 
+# Vista datos perosonales
+
+def mis_datos(request,dni):
+    usuario = get_object_or_404(Usuario, dni=dni)
+    return render(
+        request,
+        "tareas/mis_datos.html",
+        {
+            "usuario": usuario,
+            
+        }
+    )
+
+# vista formulario crear tarea individual
+
+# views.py
+def crear_tarea_individual(request):
+    form = CrearTareaIndividualForm(request.POST or None)
+    
+    if form.is_valid():
+            dni = form.cleaned_data["dni"]
+            creador = Usuario.objects.get(dni=dni)
+
+            tarea = form.save(commit=False)
+            tarea.creado_por = creador
+            tarea.save()
+
+            messages.success(request, "Tarea individual creada correctamente.")
+            return redirect("tareas_index")
+    print("ERRORS =>", form.errors)
+    print("NON FIELD =>", form.non_field_errors())
+    return render(request, 'tareas/crear_tarea_individual.html', {'form': form})

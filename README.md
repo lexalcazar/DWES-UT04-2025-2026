@@ -1,9 +1,10 @@
 # DWES-UT04-Practica-2025-2026
+
 ## Listado de elementos a implementar
 
 Vistas
 
-- [] Vista en la que un alumno/profesor pueda ver sus datos.
+- [X] Vista en la que un alumno/profesor pueda ver sus datos.
 - [X] Vista con el listado de todo el alumnado/profesorado.
 - [X] Vista en la que un alumno puede ver todas las tareas que ha creado o colabora.
 - [X] Vista en la que un profesor puede ver todas las tareas que requieren su validación.
@@ -17,6 +18,7 @@ Formularios
 
 
 ## Temporalización del repositorio
+
 ### 12/12/25 
 
 Clonamos repositorio tarea 3 DWES, y lo añadomos al repositorio tema 4, para la práctica 4.
@@ -70,4 +72,9 @@ Migro los modelos a bd pruebas
 Y vista funcionando tanto con alumno como con profesor para ver tareas asignadas o 
 que necesitan validacion de u profesor
 
+### 19/12/25
+
+Vista para datos personales hecha
+
+Hago formulario para crear tarea individual, falta si es evaluable tengo que añadir algo más
 

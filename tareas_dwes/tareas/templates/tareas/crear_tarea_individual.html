@@ -1,0 +1,60 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h2>Crear tarea individual</h2>
+
+{% if messages %}
+  {% for message in messages %}
+    <p>{{ message }}</p>
+  {% endfor %}
+{% endif %}
+
+<form method="post" novalidate>
+  {% csrf_token %}
+
+  {% if form.non_field_errors %}
+    <div class="text-danger">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <div class="mb-3">
+    {{ form.dni.label_tag }}
+    {{ form.dni}}
+    {% if form.dni.errors %}
+      <div class="text-danger">{{ form.dni.errors }}</div>
+    {% endif %}
+  </div>
+
+  <div class="mb-3">
+    {{ form.alumno_asignado.label_tag }}
+    {{ form.alumno_asignado }}
+    {% if form.alumno_asignado.errors %}
+      <div class="text-danger">{{ form.alumno_asignado.errors }}</div>
+    {% endif %}
+  </div>
+
+  <div class="mb-3">
+    {{ form.titulo.label_tag }}
+    {{ form.titulo }}
+    {% if form.titulo.errors %}
+      <div class="text-danger">{{ form.titulo.errors }}</div>
+    {% endif %}
+  </div>
+
+  <div class="mb-3">
+    {{ form.enunciado.label_tag }}
+    {{ form.enunciado }}
+    {% if form.enunciado.errors %}
+      <div class="text-danger">{{ form.enunciado.errors }}</div>
+    {% endif %}
+  </div>
+
+  <div class="mb-3">
+    {{ form.fecha_entrega.label_tag }}
+    {{ form.fecha_entrega }}
+    {% if form.fecha_entrega.errors %}
+      <div class="text-danger">{{ form.fecha_entrega.errors }}</div>
+    {% endif %}
+  </div>
+
+  <button type="submit" class="btn btn-primary">Crear tarea</button>
+</form>
+{% endblock %}

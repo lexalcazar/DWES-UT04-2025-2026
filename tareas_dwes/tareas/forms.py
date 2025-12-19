@@ -1,6 +1,6 @@
 from django import forms
 from django.core.validators import RegexValidator
-from tareas.models import Usuario
+from tareas.models import TareaIndividual, Usuario
 
 class UsuarioForm(forms.ModelForm):
     dni = forms.CharField(
@@ -32,3 +32,42 @@ class UsuarioForm(forms.ModelForm):
             if qs.exists():
                 raise forms.ValidationError("Ya existe un usuario con este email.")
         return email
+    
+
+class CrearTareaIndividualForm(forms.ModelForm):
+    # Campo extra que NO está en el modelo
+    dni = forms.CharField(
+        label='DNI del creador',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': '12345678Z'
+        })
+    )
+    
+    class Meta:
+        model = TareaIndividual
+
+        fields = ['alumno_asignado', 'titulo', 'enunciado','fecha_entrega']
+        
+        # Excluir campos
+        # exclude = ['activo']
+        
+        widgets = {
+            'alumno_asignado': forms.Select(attrs={'class': 'form-control'}),
+            'titulo': forms.TextInput(attrs={'placeholder': 'Introduzca titulo'}),
+            'enunciado':forms.Textarea(attrs={'class':'form-control'}),
+            'fecha_entrega': forms.DateTimeInput(attrs={'type': 'datetime-local','class': 'form-control'})
+        }
+        
+     
+    
+    # Validación personalizada
+    def clean_dni(self):
+        dni = (self.cleaned_data.get("dni") or "").strip().upper()
+        if not dni:
+            raise forms.ValidationError("Introduce el DNI del creador.")
+
+        creador = Usuario.objects.filter(dni=dni).first()
+        if not creador:
+            raise forms.ValidationError("No existe un usuario con ese DNI.")
+        return dni

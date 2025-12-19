@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h2>Consultar mis datos personales</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="dni">Introduce tu DNI:</label>
+    <input type="text" name="dni" id="dni" placeholder="12345678Z" required>
+
+    <button type="submit">Ver mis datos</button>
+</form>
+
+{% endblock %}
