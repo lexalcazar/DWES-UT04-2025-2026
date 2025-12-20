@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h2>Crear tarea</h2>
+
+<form method="post" novalidate>
+  {% csrf_token %}
+
+  <div class="mb-3">{{ form.dni_creador.label_tag }} {{ form.dni_creador }} {{ form.dni_creador.errors }}</div>
+  <div class="mb-3">{{ form.tipo.label_tag }} {{ form.tipo }} {{ form.tipo.errors }}</div>
+
+  <div class="mb-3">{{ form.titulo.label_tag }} {{ form.titulo }} {{ form.titulo.errors }}</div>
+  <div class="mb-3">{{ form.enunciado.label_tag }} {{ form.enunciado }} {{ form.enunciado.errors }}</div>
+  <div class="mb-3">{{ form.fecha_entrega.label_tag }} {{ form.fecha_entrega }} {{ form.fecha_entrega.errors }}</div>
+
+  <hr>
+
+  <div class="mb-3">{{ form.alumno_asignado.label_tag }} {{ form.alumno_asignado }} {{ form.alumno_asignado.errors }}</div>
+  <div class="mb-3">{{ form.alumnos.label_tag }} {{ form.alumnos }} {{ form.alumnos.errors }}</div>
+
+  <div class="form-check mb-3">
+    {{ form.evaluable }} {{ form.evaluable.label_tag }}
+  </div>
+
+  <button type="submit" class="btn btn-primary">Crear</button>
+</form>
+{% endblock %}

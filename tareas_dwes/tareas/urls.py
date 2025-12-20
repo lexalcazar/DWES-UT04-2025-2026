@@ -17,6 +17,7 @@ urlpatterns = [
   path("validaciones/<str:dni>/", views.validacion_profesor, name="validaciones"),
   path("datos_personales/", views.buscar_datos, name="buscar_datos_personales"),
   path("datos_personales/<str:dni>/", views.mis_datos, name="mis_datos"),
-  path("crear_tarea_individual/", views.crear_tarea_individual, name="crear_tarea_individual"),
+  path("crear_tarea/", views.crear_tarea, name="crear_tarea"),
+  path("crear_tarea_grupal/", views.crear_tarea_grupal, name="crear_tarea_grupal"),
 
 ]

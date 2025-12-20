@@ -3,6 +3,12 @@
 {% block content %}
 <h2>Consultar mis tareas</h2>
 
+{% if messages %}
+  {% for message in messages %}
+    <p>{{ message }}</p>
+  {% endfor %}
+{% endif %}
+
 <form method="post">
     {% csrf_token %}
     <label for="dni">Introduce tu DNI:</label>
