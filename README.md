@@ -1,9 +1,9 @@
 # DWES-UT04-Practica-2025-2026
 
-##qué es el proyecto
+## qué es el proyecto
 
-##qué funcionalidades cumple
+## qué funcionalidades cumple
 
-##cómo se ejecuta
+## cómo se ejecuta
 
-##versión final
+## versión final
