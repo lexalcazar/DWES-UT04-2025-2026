@@ -48,3 +48,6 @@ Hago pequeños cambios en front
 
 Elimino errores 404 y los cambio por mensajes
 
+### 23/12/25
+
+Merge con rama Pruebas, guardo todo lo que tengo funcionando
