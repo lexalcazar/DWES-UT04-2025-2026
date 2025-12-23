@@ -1,29 +1,37 @@
 {% extends "base_generic.html" %}
 {% block content%}
-<h1>Inicio</h1>
-<div>
-    <a href="{% url 'lista_usuarios' %}">
-        <h2>Listar Usuarios</h2>
-    </a>
-</div>
-<div>
-    <a href="{% url 'crear_usuario' %}">
-        <h2>Crear Usuario</h2>
-    </a>
+<h1 style="text-align: center">Inicio</h1>
+<div style="border-top: solid black 1px; border-bottom: solid black 1px;">
+    <div>
+        <a href="{% url 'lista_usuarios' %}">
+            <h2 style="padding: 10px;">Listar Usuarios</h2>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'crear_usuario' %}">
+            <h2 style="padding: 10px;">Crear Usuario</h2>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'buscar_datos_personales' %}">
+            <h2 style="padding: 10px;">Buscar datos personales</h2>
+        </a>
+    </div>
 </div>
 <div>
     <a href="{% url 'buscar_por_dni' %}">
-        <h2>Buscar tareas asignadas</h2>
+        <h2 style="padding: 10px;">Buscar tareas asignadas</h2>
+    </a>
+</div>
+
+<div>
+    <a href="{% url 'crear_tarea' %}">
+        <h2 style="padding: 10px;">Crear tarea individual</h2>
     </a>
 </div>
 <div>
-    <a href="{% url 'buscar_datos_personales' %}">
-        <h2>Buscar datos personales</h2>
-    </a>
-</div>
-<div>
-    <a href="{% url 'crear_tarea_individual' %}">
-        <h2>Crear tarea Individual</h2>
+    <a href="{% url 'crear_tarea_grupal' %}">
+        <h2 style="padding: 10px;">Crear tarea grupal</h2>
     </a>
 </div>
 {% endblock%}

@@ -24,11 +24,11 @@
 
 <h3>Tareas creadas</h3>
 <ul>
-    {% for tareas in tareas_creadas%}
-        <li>{{ tarea.titulo }} - entrega: {{ tarea.fecha_entrega }}</li>
-        {% empty %}
-        <li>No tienes tareas creadas</li>
-        {% endfor %}
+    {% for tarea in tareas_creadas%}
+    <li>{{ tarea.titulo }} - entrega: {{ tarea.fecha_entrega }}</li>
+    {% empty %}
+    <li>No tienes tareas creadas</li>
+    {% endfor %}
 
 </ul>
 

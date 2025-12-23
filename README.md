@@ -13,8 +13,8 @@ Vistas
 Formularios
 
 - [X] Formulario para el alta del alumnado/profesorado.
-- [] Formulario de creación de una tarea individual (puede necesitar o no evaluación de un profesor)
-- [] Formulario de creación de una tarea grupal (puede necesitar o no evaluación de un profesor)
+- [X] Formulario de creación de una tarea individual (puede necesitar o no evaluación de un profesor)
+- [X] Formulario de creación de una tarea grupal (puede necesitar o no evaluación de un profesor)
 
 
 ## Temporalización del repositorio
@@ -35,4 +35,16 @@ Merge con Desarrollo para tener en pruebas todo y seguir trabajando
 ### 19/12/25
 
 Todo funciona en pruebas hago merge con esta rama y guardo todo antes de seguir trabajando en pruebas
+
+### 20/12/25
+
+Cambio modelos de herencia a OneToOneField
+
+Realizo formulario para tareas individual y grupal, evaluable o no
+
+Todo funciona
+
+Hago pequeños cambios en front
+
+Elimino errores 404 y los cambio por mensajes
 

@@ -1,8 +1,9 @@
 from gc import get_objects
+from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from django.contrib import messages
-from .forms import CrearTareaIndividualForm, UsuarioForm
+from .forms import  CrearTareaGrupalForm, CrearTareaIndividualForm, UsuarioForm
 from .models import Tarea, Usuario
 
 # vista para el index.html
@@ -47,14 +48,18 @@ def crear_usuario(request):
 
 def buscar_dni(request):
     if request.method == "POST":
-        dni = request.POST.get("dni")
-        usuario = get_object_or_404(Usuario, dni=dni)
+        dni = (request.POST.get("dni") or "").strip().upper()
+
+        usuario = Usuario.objects.filter(dni=dni).first()
+        if not usuario:
+            messages.error(request, "No existe ningún usuario con ese DNI.")
+            return render(request, "tareas/buscar_por_dni.html", {"dni": dni})
+
         if usuario.rol == "alumno":
             return redirect("mis_tareas", dni=dni)
-        else:
-            return redirect("validaciones", dni=dni)
+        return redirect("validaciones", dni=dni)
 
-    return render(request,"tareas/buscar_por_dni.html")
+    return render(request, "tareas/buscar_por_dni.html")
 
 # Vista tareas de un alumno creadas o asignadas
 
@@ -62,11 +67,11 @@ def ver_tareas_por_dni(request, dni):
     usuario = get_object_or_404(Usuario, dni=dni)
      
     tareas_individuales = Tarea.objects.filter(
-            tareaindividual__alumno_asignado=usuario
+            individual__alumno_asignado=usuario
         )
 
     tareas_grupales = Tarea.objects.filter(
-            tareagrupal__alumnos=usuario
+            grupal__alumnos=usuario
         )
 
     tareas_creadas = Tarea.objects.filter(creado_por=usuario)
@@ -89,7 +94,7 @@ def ver_tareas_por_dni(request, dni):
 def validacion_profesor(request, dni):
 
     profesor = get_object_or_404(Usuario, dni=dni)  
-    validador=Tarea.objects.filter(tareaevaluable__validada_por=profesor)
+    validador=Tarea.objects.filter(evaluable__validada_por=profesor)
 
     return render(
         request,
@@ -102,12 +107,21 @@ def validacion_profesor(request, dni):
     )
  
 # Vista para buscar datos personales
+
+
 def buscar_datos(request):
     if request.method == "POST":
-        dni = request.POST.get("dni")
-        usuario = get_object_or_404(Usuario, dni=dni)
+        dni = (request.POST.get("dni") or "").strip().upper()
+
+        usuario = Usuario.objects.filter(dni=dni).first()
+        if not usuario:
+            messages.error(request, "No existe ningún usuario con ese DNI.")
+            return render(request, "tareas/buscar_datos_personales.html", {"dni": dni})
+
         return redirect("mis_datos", dni=dni)
-    return render(request,"tareas/buscar_datos_personales.html")
+
+    return render(request, "tareas/buscar_datos_personales.html")
+
 
 
 # Vista datos perosonales
@@ -123,22 +137,22 @@ def mis_datos(request,dni):
         }
     )
 
-# vista formulario crear tarea individual
-
-# views.py
-def crear_tarea_individual(request):
+def crear_tarea(request):
     form = CrearTareaIndividualForm(request.POST or None)
-    
-    if form.is_valid():
-            dni = form.cleaned_data["dni"]
-            creador = Usuario.objects.get(dni=dni)
 
-            tarea = form.save(commit=False)
-            tarea.creado_por = creador
-            tarea.save()
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Tarea creada correctamente.")
+        return redirect("tareas_index")
 
-            messages.success(request, "Tarea individual creada correctamente.")
-            return redirect("tareas_index")
-    print("ERRORS =>", form.errors)
-    print("NON FIELD =>", form.non_field_errors())
-    return render(request, 'tareas/crear_tarea_individual.html', {'form': form})
+    return render(request, "tareas/crear_tarea.html", {"form": form})
+
+def crear_tarea_grupal(request):
+    form = CrearTareaGrupalForm(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Tarea creada correctamente.")
+        return redirect("tareas_index")
+
+    return render(request, "tareas/crear_tarea_grupal.html", {"form": form})
