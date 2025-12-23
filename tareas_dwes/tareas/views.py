@@ -89,7 +89,7 @@ def ver_tareas_por_dni(request, dni):
     )
 
 
-# Vista un profero ve las tareas que requieren su validacion
+# Vista un profesor ve las tareas que requieren su validacion
 
 def validacion_profesor(request, dni):
 
@@ -124,7 +124,7 @@ def buscar_datos(request):
 
 
 
-# Vista datos perosonales
+# Vista datos personales
 
 def mis_datos(request,dni):
     usuario = get_object_or_404(Usuario, dni=dni)
@@ -137,6 +137,9 @@ def mis_datos(request,dni):
         }
     )
 
+
+#Vista crear tarea Individual
+
 def crear_tarea(request):
     form = CrearTareaIndividualForm(request.POST or None)
 
@@ -146,6 +149,9 @@ def crear_tarea(request):
         return redirect("tareas_index")
 
     return render(request, "tareas/crear_tarea.html", {"form": form})
+
+
+# Vista crear tarea grupal
 
 def crear_tarea_grupal(request):
     form = CrearTareaGrupalForm(request.POST or None)
