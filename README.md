@@ -90,3 +90,15 @@ Hago pequeños cambios en front
 
 Elimino errores 404 y los cambio por mensajes
 
+### 23/12/25
+
+Ajusto formularios para que actualicen datos en tabla entregas
+
+creo vista para ver las entregas y el estado en el que se encuentran
+
+creo vista para realizar entrega y que actualice la bd 
+
+falta aplicar las validaciones de tareas
+
+falta en buscar tareas asignadas arreglar los mensajes que salen
+

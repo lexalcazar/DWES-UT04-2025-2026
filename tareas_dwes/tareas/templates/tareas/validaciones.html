@@ -2,16 +2,27 @@
 
 {% block content %}
 
-<h2>Tareas de {{ profesor.first_name }} {{ profesor.last_name }}</h2>
-<h2> {{ profesor.rol }} </h2>
+{% if messages %}
+  {% for message in messages %}
+    <p>{{ message }}</p>
+  {% endfor %}
+{% endif %}
 <h3>Tareas para validar</h3>
 <ul>
-    {% for tarea in tareas_para_validar %}
-        <li>{{ tarea.titulo }} - entrega: {{ tarea.fecha_entrega }}</li>
-    {% empty %}
-     <li>No tienes tareas para validar</li>
-    {% endfor %}
+  {% for entrega in entregas_para_validar %}
+    <li>
+      {{ entrega.tarea.titulo }} - límite: {{ entrega.tarea.fecha_entrega }}
+      - Alumno: {{ entrega.alumno.email }}
+
+      <a href="{% url 'validar_profesor' dni entrega.tarea_id entrega.alumno_id %}">
+        Validar
+      </a>
+    </li>
+  {% empty %}
+    <li>No tienes tareas para validar</li>
+  {% endfor %}
 </ul>
+
 
 
 

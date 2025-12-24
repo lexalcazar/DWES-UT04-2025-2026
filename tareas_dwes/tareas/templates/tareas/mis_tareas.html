@@ -3,6 +3,7 @@
 {% block content %}
 <h2>Tareas de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
 <h2> {{ usuario.rol }} </h2>
+
 <h3>Tareas individuales</h3>
 <ul>
     {% for tarea in tareas_individuales %}
@@ -15,7 +16,7 @@
 <h3>Tareas grupales</h3>
 <ul>
     {% for tarea in tareas_grupales %}
-        <li>{{ tarea.titulo }} - entrega: {{ tarea.fecha_entrega }}</li>
+      <li>{{ tarea.titulo }} - entrega: {{ tarea.fecha_entrega }}</li>
     {% empty %}
      <li>No tienes tareas grupales</li>
 
@@ -31,6 +32,9 @@
     {% endfor %}
 
 </ul>
+<a href="{% url 'ver_entregas' usuario.dni %}">
+    <h2> ver entregas</h2>
+</a>
 
 <div style="margin-top: 20px;">
     <a href="{% url 'buscar_por_dni' %}">
