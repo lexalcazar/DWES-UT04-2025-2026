@@ -2,7 +2,7 @@
 {% block content %}
 {% if messages %}
   {% for message in messages %}
-    <p style="color:red;">{{ message }}</p>
+    <p>{{ message }}</p>
   {% endfor %}
 {% endif %}
 <h2>Entregas de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
@@ -10,12 +10,14 @@
 <ul>
   {% for entrega in entregas %}
     <li>
-      <strong>{{ entrega.tarea.titulo }}</strong><br>
+    <strong>{{ entrega.tarea }}</strong><br>
 
       Estado:
-      {% if entrega.estado == "entregada" %}
+      {% if entrega.estado == "entregada" and entrega.tarea.evaluable.requiere_validacion_profesor %}
         <span style="color:orange;">ENTREGADA</span>
-        <a href="{% url 'validar' dni entrega.tarea_id %}">Validar</a>
+      {% elif entrega.estado == "entregada" %}
+       <span style="color:orange;">ENTREGADA</span>
+       <a href="{% url 'validar' dni entrega.tarea_id %}">Validar</a>
       {% elif entrega.estado == "validada" %}
         <span style="color:green;">VALIDADA</span>
       {% elif entrega.estado == "pendiente" %}

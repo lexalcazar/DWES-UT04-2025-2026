@@ -111,7 +111,7 @@ class CrearTareaIndividualForm(forms.Form):
 
         alumno = self.cleaned_data["alumno_asignado"]
 
-        # Individual
+       
         TareaIndividual.objects.create(
             tarea=tarea,
             alumno_asignado=alumno
@@ -170,7 +170,7 @@ class CrearTareaGrupalForm(forms.Form):
         )
     )
 
-    # Grupal
+   
     alumnos = forms.ModelMultipleChoiceField(
         label="Alumnos",
         queryset=Usuario.objects.filter(rol="alumno").order_by("last_name", "first_name"),

@@ -112,3 +112,5 @@ quitare del modelo final los comentarios en la entrega
 
 hay que arreglar los mensajes que se quedan en la pagina y no se van al crear tareas, y revisar y hay mas fallos
 
+Mejoro comportamiento de validaciones ahora se marca como validada en evaluable cuando un profesor valida
+

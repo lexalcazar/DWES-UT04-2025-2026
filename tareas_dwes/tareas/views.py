@@ -15,7 +15,7 @@ def tareas_index(request):
     return render(request, "tareas/inicio.html")
 
 # Vista para listar a los usuarios de la aplicacion
-# Lista los usuarios que hay almacenados
+# Lista los usuarios que hay almacenados en la bd
 
 class ListaUsuariosView(ListView):
     model = Usuario
@@ -49,8 +49,9 @@ def crear_usuario(request):
 
      return render(request, "tareas/crear_usuario.html", {"form": form})
 
-# Vista para buscar una tarea por DNI del creador o usuario asignado
-# Con esta vista buscamos al usuario por el dni introduicido y nos lleva a las tareas
+# Vista para buscar por DNI una tarea asignada 
+# Con esta vista buscamos al usuario por el dni introducido y nos lleva a las tareas
+# que tiene asignadas y tambien se visualizan las tareas creadas por el usuario
 
 def buscar_dni(request):
     if request.method == "POST":
@@ -226,11 +227,11 @@ def entregar_tarea(request,dni,tarea_id):
 
 def ver_entregas(request, dni):
     usuario = get_object_or_404(Usuario, dni=dni)
-
+    
     entregas = Entrega.objects.filter(
         alumno=usuario
     ).select_related("tarea").order_by("-fecha_entrega")
-
+   
     return render(
         request,
         "tareas/entregas.html",
@@ -238,11 +239,12 @@ def ver_entregas(request, dni):
             "usuario": usuario,
             "entregas": entregas,
             "dni": dni,
+            
         }
     )
 
 # vista para validar una tarea
-# esta vista se utiliza tanto para que valide una tarea un profesor como un alumno
+# esta vista se utiliza tanto para que valide una tarea tanto un profesor como un alumno
 # para que la pueda validar un alumno tiene que ser una tarea no evaluable
 # las tareas evaluables solo las valida un profesor
 
@@ -252,7 +254,7 @@ def validar(request, dni, tarea_id, alumno_id=None):
     # Si la tarea es evaluable y requiere profesor
     evaluable = TareaEvaluable.objects.filter(tarea_id=tarea_id, requiere_validacion_profesor=True).exists()
 
-    # --- CASO ALUMNO ---
+    # --- ALUMNO ---
     if usuario.rol == "alumno":
         # solo puede validar NO evaluables
         if evaluable:
@@ -264,10 +266,12 @@ def validar(request, dni, tarea_id, alumno_id=None):
         entrega.fecha_validacion = timezone.now()
         entrega.save()
 
+      
+
         messages.success(request, "Tarea marcada como validada (no evaluable).")
         return redirect("ver_entregas", dni=dni)
 
-    # --- CASO PROFESOR ---
+    # --- PROFESOR ---
     if usuario.rol == "profesor":
         if alumno_id is None:
             messages.error(request, "Falta el alumno de la entrega a validar.")
@@ -278,6 +282,11 @@ def validar(request, dni, tarea_id, alumno_id=None):
         entrega.profesor_validador = usuario
         entrega.fecha_validacion = timezone.now()
         entrega.save()
+
+        if entrega.estado=="validada":
+            evaluable=get_object_or_404(TareaEvaluable, tarea_id=tarea_id, validada_por=usuario)
+            evaluable.validada= True
+            evaluable.save()
 
         messages.success(request, "Entrega validada por profesor.")
         return redirect("validaciones", dni=dni)
