@@ -167,7 +167,9 @@ def crear_tarea(request):
         form.save()
         messages.success(request, "Tarea creada correctamente.")
         return redirect("tareas_index")
-
+    else:
+        messages.success(request, "No se creo la tarea.")
+        messages.success(request, "Revise si todos los campos son correctos.")
     return render(request, "tareas/crear_tarea.html", {"form": form})
 
 
@@ -184,6 +186,10 @@ def crear_tarea_grupal(request):
         form.save()
         messages.success(request, "Tarea creada correctamente.")
         return redirect("tareas_index")
+        
+    else:
+        messages.success(request, "No se creo la tarea.")
+        messages.success(request, "Revise si todos los campos son correctos.")
 
     return render(request, "tareas/crear_tarea_grupal.html", {"form": form})
 
@@ -209,7 +215,7 @@ def entregar_tarea(request,dni,tarea_id):
     entrega.fecha_entrega = timezone.now()  
     entrega.save()
 
-    messages.success(request, "Tarea marcada como entregada.")
+   # messages.success(request, "Tarea marcada como entregada.") esto lo tengo que quitar
     return redirect("ver_entregas", dni=dni)
     
    

@@ -1,3 +1,5 @@
+
+from urllib import request
 from django import forms
 from django.core.validators import RegexValidator
 from django.shortcuts import get_object_or_404
@@ -92,7 +94,7 @@ class CrearTareaIndividualForm(forms.Form):
             creador = Usuario.objects.filter(dni=dni).first()
             if not creador or creador.rol != "profesor":
                 self.add_error("evaluable", "Solo un profesor puede crear tareas evaluables.")
-
+               
        
 
         return cleaned

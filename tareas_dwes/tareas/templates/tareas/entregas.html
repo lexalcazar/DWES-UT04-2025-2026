@@ -2,7 +2,7 @@
 {% block content %}
 {% if messages %}
   {% for message in messages %}
-    <p>{{ message }}</p>
+    <p style="color:red;">{{ message }}</p>
   {% endfor %}
 {% endif %}
 <h2>Entregas de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
@@ -36,4 +36,5 @@
     <li>No hay entregas registradas.</li>
   {% endfor %}
 </ul>
+
 {% endblock %}

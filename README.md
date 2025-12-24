@@ -102,3 +102,13 @@ falta aplicar las validaciones de tareas
 
 falta en buscar tareas asignadas arreglar los mensajes que salen
 
+### 24/12/25
+
+validaciones aplicadas
+
+se arregla los mensajes en buscar tareas asignadas
+
+quitare del modelo final los comentarios en la entrega
+
+hay que arreglar los mensajes que se quedan en la pagina y no se van al crear tareas, y revisar y hay mas fallos
+
