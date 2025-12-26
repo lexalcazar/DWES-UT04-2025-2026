@@ -114,3 +114,9 @@ hay que arreglar los mensajes que se quedan en la pagina y no se van al crear ta
 
 Mejoro comportamiento de validaciones ahora se marca como validada en evaluable cuando un profesor valida
 
+### 26/12/25
+
+Añado comentarios en views y en formularios faltan en models
+
+Ajusto htmls para mejor visualización de los datos
+
