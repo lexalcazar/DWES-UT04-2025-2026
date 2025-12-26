@@ -51,3 +51,7 @@ Elimino errores 404 y los cambio por mensajes
 ### 23/12/25
 
 Merge con rama Pruebas, guardo todo lo que tengo funcionando
+
+### 26/12/25
+
+Merge con rama Pruebas, guardo todos los avances antes de continuar.
