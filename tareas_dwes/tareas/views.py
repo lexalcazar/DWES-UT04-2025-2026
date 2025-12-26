@@ -94,6 +94,7 @@ def ver_tareas_por_dni(request, dni):
             "tareas_individuales": tareas_individuales,
             "tareas_grupales": tareas_grupales,
             "tareas_creadas": tareas_creadas,
+            
           
         }
     )

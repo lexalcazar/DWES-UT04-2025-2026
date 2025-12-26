@@ -8,8 +8,8 @@
 <ul>
     {% for tarea in tareas_individuales %}
         <li>{{ tarea.titulo }} - entrega: {{ tarea.fecha_entrega }}</li>
-    {% empty %}
-     <li>No tienes tareas individuales</li>
+        {% empty %}
+        <li>No tienes tareas individuales</li>
     {% endfor %}
 </ul>
 
