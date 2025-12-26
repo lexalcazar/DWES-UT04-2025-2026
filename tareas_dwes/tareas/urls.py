@@ -19,5 +19,14 @@ urlpatterns = [
   path("datos_personales/<str:dni>/", views.mis_datos, name="mis_datos"),
   path("crear_tarea/", views.crear_tarea, name="crear_tarea"),
   path("crear_tarea_grupal/", views.crear_tarea_grupal, name="crear_tarea_grupal"),
+  path("entregas/<str:dni>/",views.ver_entregas,name="ver_entregas"),
+  path("entregas/<str:dni>/entregar/<uuid:tarea_id>/", views.entregar_tarea, name="entregar_tarea"),
+  path("validar/<str:dni>/<uuid:tarea_id>/", views.validar, name="validar"),
+  path("validar/<str:dni>/<uuid:tarea_id>/<uuid:alumno_id>/", views.validar, name="validar_profesor"),
+
+
+
+  
+
 
 ]

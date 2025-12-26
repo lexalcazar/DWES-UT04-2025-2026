@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <p>{{ message }}</p>
+  {% endfor %}
+{% endif %}
+<h2>Entregas de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
+
+<ul>
+  {% for entrega in entregas %}
+    <li>
+    <strong>{{ entrega.tarea }}</strong><br>
+
+      Estado:
+      {% if entrega.estado == "entregada" and entrega.tarea.evaluable.requiere_validacion_profesor %}
+        <span style="color:orange;">ENTREGADA</span>
+      {% elif entrega.estado == "entregada" %}
+       <span style="color:orange;">ENTREGADA</span>
+       <a href="{% url 'validar' dni entrega.tarea_id %}">Validar</a>
+      {% elif entrega.estado == "validada" %}
+        <span style="color:green;">VALIDADA</span>
+      {% elif entrega.estado == "pendiente" %}
+        <span style="color:red;">PENDIENTE</span>
+          <a class="btn btn-success"
+         href="{% url 'entregar_tarea' dni entrega.tarea.id_tarea %}">
+        Entregar
+        </a>
+      {% elif entrega.estado == "no_validada" %}
+        <span style="color:red;">NO VALIDADA</span>
+      {% endif %}
+      <br>
+
+      Fecha entrega:
+      {{ entrega.fecha_entrega|date:"d/m/Y H:i" }}
+    </li>
+  {% empty %}
+    <li>No hay entregas registradas.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

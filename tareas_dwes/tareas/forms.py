@@ -1,7 +1,9 @@
+
+from urllib import request
 from django import forms
 from django.core.validators import RegexValidator
 from django.shortcuts import get_object_or_404
-from tareas.models import Tarea, TareaEvaluable, TareaGrupal, TareaIndividual, Usuario
+from tareas.models import Entrega, Tarea, TareaEvaluable, TareaGrupal, TareaIndividual, Usuario
 
 #Formulario crear usuario
 
@@ -27,6 +29,7 @@ class UsuarioForm(forms.ModelForm):
         }
 
     def clean_email(self):
+       
         email = self.cleaned_data.get('email')
         if email:
             qs = Usuario.objects.filter(email__iexact=email)
@@ -80,6 +83,7 @@ class CrearTareaIndividualForm(forms.Form):
         if not Usuario.objects.filter(dni=dni).exists():
             raise forms.ValidationError("No existe un usuario con ese DNI.")
         return dni
+    
     def clean(self):
         cleaned = super().clean()
         dni = (cleaned.get("dni_creador") or "").strip().upper()
@@ -90,47 +94,64 @@ class CrearTareaIndividualForm(forms.Form):
             creador = Usuario.objects.filter(dni=dni).first()
             if not creador or creador.rol != "profesor":
                 self.add_error("evaluable", "Solo un profesor puede crear tareas evaluables.")
-
+               
        
 
         return cleaned
 
     def save(self):
-        creador = get_object_or_404(Usuario, dni=self.cleaned_data["dni_creador"])
+        creador = Usuario.objects.get(dni=self.cleaned_data["dni_creador"])
 
         tarea = Tarea.objects.create(
             titulo=self.cleaned_data["titulo"],
             enunciado=self.cleaned_data["enunciado"],
-            fecha_entrega=self.cleaned_data["fecha_entrega"],
+            fecha_entrega=self.cleaned_data["fecha_entrega"],  # fecha límite (en tu modelo actual)
             creado_por=creador,
         )
 
+        alumno = self.cleaned_data["alumno_asignado"]
+
        
         TareaIndividual.objects.create(
-                tarea=tarea,
-                alumno_asignado=self.cleaned_data["alumno_asignado"]
-            )
-      
+            tarea=tarea,
+            alumno_asignado=alumno
+        )
 
-        # Evaluable: asignar el profesor creador como validador
-        if self.cleaned_data["evaluable"]:
+        evaluable = self.cleaned_data.get("evaluable", False)
+
+        if evaluable:
             TareaEvaluable.objects.create(
                 tarea=tarea,
                 validada=False,
-                validada_por=creador,   # aquí se le asigna “a él”
+                validada_por=creador,
+            )
+
+    # Crear/actualizar entrega UNA sola vez (si hay alumno)
+        if alumno:
+            Entrega.objects.update_or_create(
+                tarea=tarea,
+                alumno=alumno,
+                defaults={
+                "estado": "pendiente",
+                "fecha_entrega": tarea.fecha_entrega,               # tú quieres guardarla aquí
+                "profesor_validador": creador if evaluable else None,
+                }
             )
 
         return tarea
+
     
 # Formulario crear tarea grupal
 
 class CrearTareaGrupalForm(forms.Form):
 
-
     dni_creador = forms.CharField(
         label="DNI del creador",
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "12345678Z"})
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "12345678Z"}
+        )
     )
+
     titulo = forms.CharField(
         label="Título",
         widget=forms.TextInput(attrs={"class": "form-control"})
@@ -144,14 +165,16 @@ class CrearTareaGrupalForm(forms.Form):
     fecha_entrega = forms.DateTimeField(
         label="Fecha de entrega",
         input_formats=["%Y-%m-%dT%H:%M"],
-        widget=forms.DateTimeInput(attrs={"type": "datetime-local", "class": "form-control"})
+        widget=forms.DateTimeInput(
+            attrs={"type": "datetime-local", "class": "form-control"}
+        )
     )
 
- # Grupal
+   
     alumnos = forms.ModelMultipleChoiceField(
         label="Alumnos",
         queryset=Usuario.objects.filter(rol="alumno").order_by("last_name", "first_name"),
-        required=False,
+        required=True,
         widget=forms.SelectMultiple(attrs={"class": "form-control"})
     )
 
@@ -160,45 +183,66 @@ class CrearTareaGrupalForm(forms.Form):
         required=False
     )
 
+    # ---------- VALIDACIONES ----------
+
     def clean_dni_creador(self):
         dni = (self.cleaned_data.get("dni_creador") or "").strip().upper()
-        if not Usuario.objects.filter(dni=dni).exists():
+        try:
+            self._creador = Usuario.objects.get(dni=dni)
+        except Usuario.DoesNotExist:
             raise forms.ValidationError("No existe un usuario con ese DNI.")
         return dni
+
     def clean(self):
         cleaned = super().clean()
-        dni = (cleaned.get("dni_creador") or "").strip().upper()
-        evaluable = cleaned.get("evaluable")
+        evaluable = cleaned.get("evaluable", False)
 
-        # 1) Si es evaluable, solo profesor
-        if evaluable:
-            creador = Usuario.objects.filter(dni=dni).first()
-            if not creador or creador.rol != "profesor":
-                self.add_error("evaluable", "Solo un profesor puede crear tareas evaluables.")
+        # Si es evaluable, el creador debe ser profesor
+        if evaluable and self._creador.rol != "profesor":
+            self.add_error(
+                "evaluable",
+                "Solo un profesor puede crear tareas evaluables."
+            )
 
         return cleaned
 
+    # ---------- GUARDADO ----------
+
     def save(self):
-        creador = get_object_or_404(Usuario, dni=self.cleaned_data["dni_creador"])
+        creador = self._creador
 
         tarea = Tarea.objects.create(
             titulo=self.cleaned_data["titulo"],
             enunciado=self.cleaned_data["enunciado"],
-            fecha_entrega=self.cleaned_data["fecha_entrega"],
+            fecha_entrega=self.cleaned_data["fecha_entrega"],  # fecha límite
             creado_por=creador,
         )
 
-        #  grupal
-     
+        # Tarea grupal
         tg = TareaGrupal.objects.create(tarea=tarea)
-        tg.alumnos.set(self.cleaned_data["alumnos"])
+        alumnos = self.cleaned_data["alumnos"]
+        tg.alumnos.set(alumnos)
 
-        # Evaluable: asignar el profesor creador como validador
-        if self.cleaned_data["evaluable"]:
+        evaluable = self.cleaned_data.get("evaluable", False)
+
+        # Si es evaluable, crear registro de evaluación
+        if evaluable:
             TareaEvaluable.objects.create(
                 tarea=tarea,
                 validada=False,
-                validada_por=creador,   # aquí se le asigna “a él”
+                validada_por=creador,
+            )
+
+        # Crear entregas pendientes para cada alumno
+        for alumno in alumnos:
+            Entrega.objects.get_or_create(
+                tarea=tarea,
+                alumno=alumno,
+                fecha_entrega= tarea.fecha_entrega, # esto si cambio el modelo hay que modificarlo
+                defaults={
+                    "estado": "pendiente",
+                    "profesor_validador": creador if evaluable else None,
+                }
             )
 
         return tarea

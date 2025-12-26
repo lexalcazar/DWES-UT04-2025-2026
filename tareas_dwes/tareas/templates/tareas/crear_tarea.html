@@ -1,5 +1,10 @@
 {% extends "base_generic.html" %}
 {% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <p>{{ message }}</p>
+  {% endfor %}
+{% endif %}
 <h2>Crear tarea</h2>
 
 <form method="post" novalidate>

@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Modelo Usuario
-# Lo creamos a taves de AbstracUser un modleo que tiene Django ya con ciertos campos.
+# Lo creamos a taves de AbstracUser, un modelo que tiene Django ya con ciertos campos.
 # Nosotros anulamos el campo user name y añadimos los campos DNI, id_usuario, 
 # rol, email.
 
@@ -28,7 +28,7 @@ class Usuario(AbstractUser):
         return f"{self.email} ({self.rol})"
 
 # Modelo tarea
-# Creamos un modelo tarea base abstracto que servira para los distintos tipos de tarea.
+# 
 
 class Tarea(models.Model):
     id_tarea = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -78,8 +78,8 @@ class TareaGrupal(models.Model):
 class TareaEvaluable(models.Model):
    tarea = models.OneToOneField(Tarea,on_delete=models.CASCADE,related_name='evaluable')
    requiere_validacion_profesor = models.BooleanField(default=True)
-   puntuacion_maxima = models.PositiveIntegerField(default=10)
-   validada = models.BooleanField(default=False)
+   puntuacion_maxima = models.PositiveIntegerField(default=10)# este va fuera, deberia ir en tabla evaluacion
+   validada = models.BooleanField(default=False) 
    validada_por = models.ForeignKey( #tendre que cambiar esto por validar_por
         Usuario,
         on_delete=models.SET_NULL,
@@ -88,6 +88,7 @@ class TareaEvaluable(models.Model):
         related_name='tareas_validadas',
              limit_choices_to={'rol': 'profesor'}
     )
+   
 
 # Modelo Entrega
 
@@ -119,8 +120,9 @@ class Entrega(models.Model):
         limit_choices_to={'rol': 'profesor'}
     )
     fecha_validacion = models.DateTimeField(null=True, blank=True)
-    comentarios_profesor = models.TextField(null=True, blank=True)
+    comentarios_profesor = models.TextField(null=True, blank=True)# este hay que quitarlo en la bd final seria para una tabla de evaluacion
 
+# Restricción para que solo haya una entrega por alumno
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['tarea', 'alumno'], name='entrega_unica_por_alumno')
