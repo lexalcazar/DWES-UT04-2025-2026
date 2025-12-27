@@ -120,3 +120,22 @@ Añado comentarios en views y en formularios faltan en models
 
 Ajusto htmls para mejor visualización de los datos
 
+### 27/12/25
+
+[] Hacer merge a Desarrollo y guardar todo lo que tengo ahí
+
+[] Validar email-contraseña para visualizar todo al respecto del usuario
+
+[] Modificar las vistas para que funcione segun lo anterior
+
+[] Modelo evaluación
+
+[] Formulario evaluacion para profesores
+
+[] Vista de evaluacion para alumnos
+
+[] Cambiar modelo usuario quitar abstarc user
+
+[] Cambiar modelo tarea añadir 
+
+[] Cambiar modelo entrega quitar comentarios del profesor
