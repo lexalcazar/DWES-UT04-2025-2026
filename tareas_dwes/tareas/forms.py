@@ -5,6 +5,7 @@ from django.core.validators import RegexValidator
 from django.shortcuts import get_object_or_404
 from tareas.models import Entrega, Tarea, TareaEvaluable, TareaGrupal, TareaIndividual, Usuario
 
+
 # ------------------------------------------------------------------------------------------------------------    
 # ------------------------------------------------------------------------------------------------------------ 
 # ------------------------------------------------------------------------------------------------------------ 
@@ -435,20 +436,3 @@ class CrearTareaGrupalForm(forms.Form):
         return tarea
 
 
-
-#=================================
-# Formulario validar usuario
-#=================================
-class ValidarUsuarioForm(forms.Form):
-    email = forms.EmailField(label="Email", max_length=100)
-    password = forms.CharField(
-        label="Contraseña",
-        widget=forms.PasswordInput
-    )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        email = cleaned_data.get("email")
-        password = cleaned_data.get("password")
-
-        return cleaned_data

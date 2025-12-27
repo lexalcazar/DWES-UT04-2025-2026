@@ -9,10 +9,13 @@ from .views import ListaUsuariosView
 urlpatterns = [
   #  path('<uuid:pk>/', detalle_tarea.as_view(), name='detalle_tarea'),
   #path('usuarios/', listar_usuarios, name='listar_usuarios'),
-  #path("", views.tareas_index, name="tareas_index"),
+  path("", views.tareas_index, name="tareas_index"),
   path("usuarios/", views.ListaUsuariosView.as_view(), name="lista_usuarios"),
   path("usuarios/crear/", views.crear_usuario, name="crear_usuario"),
-  path("mis-tareas/", views.buscar_dni, name="buscar_por_dni"),
+  path("buscar_usuario/", views.buscar_usuario, name="buscar_usuario"),
+  #path("buscar_dni/", views.buscar_dni, name="buscar_por_dni"),
+  path("filtrar/<str:dni>/", views.filtrar_dni, name="filtrar_dni"),
+ 
   path("mis-tareas/<str:dni>/", views.ver_tareas_por_dni, name="mis_tareas"),
   path("validaciones/<str:dni>/", views.validacion_profesor, name="validaciones"),
   path("datos_personales/", views.buscar_datos, name="buscar_datos_personales"),
@@ -23,9 +26,10 @@ urlpatterns = [
   path("entregas/<str:dni>/entregar/<uuid:tarea_id>/", views.entregar_tarea, name="entregar_tarea"),
   path("validar/<str:dni>/<uuid:tarea_id>/", views.validar, name="validar"),
   path("validar/<str:dni>/<uuid:tarea_id>/<uuid:alumno_id>/", views.validar, name="validar_profesor"),
-  path("usuario/<uuid:usuario_id>/",views.inicio_usuario,name="inicio_usuario"),
-  path("", views.validar_usuario, name="tareas_index"),
-  path("login/", views.validar_usuario, name="validar_usuario"),
+  path("usuario/<str:dni>",views.usuario,name="usuario"),
+  path("ver/", views.crear_tarea, name="crear_tarea"),
+  #path("", views.validar_usuario, name="tareas_index"),
+  #path("login/", views.validar_usuario, name="validar_usuario"),
 
 
 

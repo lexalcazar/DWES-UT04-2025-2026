@@ -59,20 +59,14 @@ Merge con rama Pruebas, guardo todos los avances antes de continuar.
 
 ### 27/12/25
 
-[X] Hacer merge a Desarrollo y guardar todo lo que tengo ahí
+ Hacer merge a Desarrollo y guardar todo lo que tengo ahí
 
-[] Validar email-contraseña para visualizar todo al respecto del usuario
-
-[] Modificar las vistas para que funcione segun lo anterior
-
-[] Modelo evaluación
-
-[] Formulario evaluacion para profesores
-
-[] Vista de evaluacion para alumnos
+ Validar email-contraseña para visualizar todo al respecto del usuario, lo hago y no me gusta el resultado
 
 [] Cambiar modelo usuario quitar abstarc user
 
 [] Cambiar modelo tarea añadir 
 
 [] Cambiar modelo entrega quitar comentarios del profesor
+
+  Merge final con Desarrollo

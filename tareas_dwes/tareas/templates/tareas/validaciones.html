@@ -7,7 +7,9 @@
     <p>{{ message }}</p>
   {% endfor %}
 {% endif %}
+
 <h2>Profesor: {{ profesor.first_name }} {{ profesor.last_name }} </h2>
+
 <h3>Tareas para validar</h3>
 
 <ul>
@@ -29,11 +31,6 @@
 
 
 
-<div style="margin-top: 20px;">
-    <a href="{% url 'buscar_por_dni' %}">
-        <button type="button">Volver</button>
-    </a>
-</div>
 
 
 {% endblock %}

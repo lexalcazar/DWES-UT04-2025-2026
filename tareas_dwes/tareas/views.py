@@ -2,7 +2,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from django.contrib import messages
-from .forms import CrearTareaGrupalForm, CrearTareaIndividualForm, UsuarioForm, ValidarUsuarioForm
+from .forms import CrearTareaGrupalForm, CrearTareaIndividualForm, UsuarioForm
 from .models import Entrega, Tarea, TareaEvaluable, Usuario
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
@@ -17,8 +17,7 @@ from django.contrib.auth import authenticate, login
 # Renderiza la página principal.
 
 def tareas_index(request):
-    form = ValidarUsuarioForm()
-    return render(request, "tareas/inicio.html", {"form": form})
+   return render(request, "tareas/inicio.html")
 
 
 # =========================
@@ -71,29 +70,46 @@ def crear_usuario(request):
      # Renderiza tanto el GET como el POST inválido
      return render(request, "tareas/crear_usuario.html", {"form": form})
 
+#==========================
+#Busqueda por dni
+#=========================
+def buscar_usuario(request):
+    if request.method == "POST":
+        dni = (request.POST.get("dni") or "").strip().upper()
+
+        usuario = Usuario.objects.filter(dni=dni).first()
+        if not usuario:
+            messages.error(request, "No existe ningún usuario con ese DNI.")
+            return render(request, "tareas/buscar_usuario.html", {"dni": dni})
+
+        return redirect("usuario", dni=dni)
+
+    return render(request, "tareas/buscar_usuario.html")
+
 
 # =========================
 # BUSCAR DNI (REDIRECCIONADOR)
 # =========================
 # Según rol, redirige a "mis_tareas" (alumno) o "validaciones" (profesor).
 
-def buscar_dni(request):
-    if request.method == "POST":
-        dni = (request.POST.get("dni") or "").strip().upper()
+def filtrar_dni(request, dni):
+    dni = (dni or "").strip().upper()
 
-        # Busca el usuario por DNI
-        usuario = Usuario.objects.filter(dni=dni).first()
-        if not usuario:
-            messages.error(request, "No existe ningún usuario con ese DNI.")
-            return render(request, "tareas/buscar_por_dni.html", {"dni": dni})
+    usuario = Usuario.objects.filter(dni=dni).first()
+    if not usuario:
+        messages.error(request, "No existe ningún usuario con ese DNI.")
+        return render(request, "tareas/buscar_usuario.html", {"dni": dni})
 
-        # Redirección según rol
-        if usuario.rol == "alumno":
-            return redirect("mis_tareas", dni=dni)
+    # Redirección según rol
+    if usuario.rol == "alumno":
+        return redirect("mis_tareas", dni=dni)
+
+    elif usuario.rol == "profesor":
         return redirect("validaciones", dni=dni)
 
-    # GET: muestra el buscador
-    return render(request, "tareas/buscar_por_dni.html")
+    # Por seguridad (rol desconocido)
+    messages.error(request, "Rol de usuario no reconocido.")
+    return redirect("tareas_index")
 
 
 # =========================
@@ -151,6 +167,8 @@ def validacion_profesor(request, dni):
         estado="entregada"
     ).select_related("tarea", "alumno").order_by("tarea__fecha_entrega")
 
+  
+
     return render(
         request,
         "tareas/validaciones.html",
@@ -159,6 +177,7 @@ def validacion_profesor(request, dni):
             "tareas_para_validar": validador,
             "dni": dni,
             "entregas_para_validar": entregas_para_validar,
+            
         }
     )
 
@@ -344,32 +363,21 @@ def validar(request, dni, tarea_id, alumno_id=None):
 
 
     
-# =========================
-# Vista para validar e-mail y contraseña
-# =========================
-def validar_usuario(request):
-    form = ValidarUsuarioForm(request.POST or None)
 
-    if request.method == "POST" and form.is_valid():
-        email = form.cleaned_data["email"]
-        password = form.cleaned_data["password"]
-
-        user_auth = authenticate(request, username=email, password=password)
-
-        if user_auth is None:
-            messages.error(request, "Email o contraseña incorrectos.")
-            return render(request, "tareas/inicio.html", {"form": form})
-
-        login(request, user_auth)
-        return redirect("inicio_usuario", usuario_id=user_auth.id_usuario)
-
-    return render(request, "tareas/inicio.html", {"form": form})
 
 # =========================
-# Vista de inicio de usuario tras validar e-mail y contraseña
+# Vista de inicio de usuario 
 # =========================
 
 
-def inicio_usuario(request, usuario_id):
-    usuario = get_object_or_404(Usuario, id_usuario=usuario_id)
-    return render(request, "tareas/usuario.html", {"usuario": usuario})
+def usuario(request, dni):
+    dni = (dni or "").strip().upper()
+    usuario_obj = Usuario.objects.filter(dni=dni).first()
+
+    if not usuario_obj:
+        messages.error(request, "No existe ningún usuario con ese DNI.")
+        return redirect("buscar_usuario")  # o a tareas_index
+
+    return render(request, "tareas/usuario.html", {"dni": dni, "usuario": usuario_obj})
+
+
