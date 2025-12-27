@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+{% block content%}
+<h1> {{ usuario.rol }}: {{ usuario.first_name }} {{ usuario.last_name }} </h1>
+<div>
+    <a href="{% url 'mis_datos' dni %}">
+        <h2 style="padding: 10px;"> Datos personales </h2>
+    </a>
+</div>
+</div>
+<div>
+    <a href="{% url 'filtrar_dni' dni %}">
+        <h2 style="padding: 10px;"> Tareas asignadas </h2>
+    </a>
+</div>
+
+{% if usuario.rol == "alumno"%}
+<div>
+    <a href="{% url 'ver_entregas' usuario.dni %}">
+    <h2 style="padding: 10px;"> Ver entregas</h2>
+    </a>
+</div>
+{% endif %}
+{% endblock%}

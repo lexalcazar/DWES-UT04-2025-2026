@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+Listado de usuarios
+{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center">Listado de profesorado y alumnado</h2>
+
+<table class="tabla">
+  <thead>
+    <tr>
+      <th>Rol</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Email</th>
+      <th>DNI</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for u in usuarios %}
+      <tr>
+        <td>{{ u.get_rol_display }}</td>
+        <td>{{ u.first_name }}</td>
+        <td>{{ u.last_name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.dni }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="6">No hay usuarios registrados.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div style="margin-top: 30px;">
+  <a href="{% url 'tareas_index' %}">
+    <button type="button">Volver</button>
+  </a>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h1>Datos Personales</h1>
+
+<h2>Nombre</h2>
+<p>{{ usuario.first_name }}</p>
+
+<h2>Apellidos</h2>
+<p>{{ usuario.last_name }}</p>
+
+<h2>Rol</h2>
+<p>{{ usuario.rol }}</p>
+
+<h2>E-mail</h2>
+<p>{{ usuario.email }}</p>
+
+{% endblock %}
