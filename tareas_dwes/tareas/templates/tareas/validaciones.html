@@ -7,7 +7,9 @@
     <p>{{ message }}</p>
   {% endfor %}
 {% endif %}
+<h2>Profesor: {{ profesor.first_name }} {{ profesor.last_name }} </h2>
 <h3>Tareas para validar</h3>
+
 <ul>
   {% for entrega in entregas_para_validar %}
     <li>
