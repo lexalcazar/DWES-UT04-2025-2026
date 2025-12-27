@@ -9,7 +9,7 @@ from .views import ListaUsuariosView
 urlpatterns = [
   #  path('<uuid:pk>/', detalle_tarea.as_view(), name='detalle_tarea'),
   #path('usuarios/', listar_usuarios, name='listar_usuarios'),
-  path("", views.tareas_index, name="tareas_index"),
+  #path("", views.tareas_index, name="tareas_index"),
   path("usuarios/", views.ListaUsuariosView.as_view(), name="lista_usuarios"),
   path("usuarios/crear/", views.crear_usuario, name="crear_usuario"),
   path("mis-tareas/", views.buscar_dni, name="buscar_por_dni"),
@@ -23,6 +23,11 @@ urlpatterns = [
   path("entregas/<str:dni>/entregar/<uuid:tarea_id>/", views.entregar_tarea, name="entregar_tarea"),
   path("validar/<str:dni>/<uuid:tarea_id>/", views.validar, name="validar"),
   path("validar/<str:dni>/<uuid:tarea_id>/<uuid:alumno_id>/", views.validar, name="validar_profesor"),
+  path("usuario/<uuid:usuario_id>/",views.inicio_usuario,name="inicio_usuario"),
+  path("", views.validar_usuario, name="tareas_index"),
+  path("login/", views.validar_usuario, name="validar_usuario"),
+
+
 
 
 

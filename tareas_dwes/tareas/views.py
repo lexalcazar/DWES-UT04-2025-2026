@@ -2,9 +2,11 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from django.contrib import messages
-from .forms import CrearTareaGrupalForm, CrearTareaIndividualForm, UsuarioForm
+from .forms import CrearTareaGrupalForm, CrearTareaIndividualForm, UsuarioForm, ValidarUsuarioForm
 from .models import Entrega, Tarea, TareaEvaluable, Usuario
 from django.utils import timezone
+from django.contrib.auth import authenticate, login
+
 
 
 
@@ -15,7 +17,8 @@ from django.utils import timezone
 # Renderiza la página principal.
 
 def tareas_index(request):
-    return render(request, "tareas/inicio.html")
+    form = ValidarUsuarioForm()
+    return render(request, "tareas/inicio.html", {"form": form})
 
 
 # =========================
@@ -337,3 +340,36 @@ def validar(request, dni, tarea_id, alumno_id=None):
 
         messages.success(request, "Entrega validada por profesor.")
         return redirect("validaciones", dni=dni)
+
+
+
+    
+# =========================
+# Vista para validar e-mail y contraseña
+# =========================
+def validar_usuario(request):
+    form = ValidarUsuarioForm(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        email = form.cleaned_data["email"]
+        password = form.cleaned_data["password"]
+
+        user_auth = authenticate(request, username=email, password=password)
+
+        if user_auth is None:
+            messages.error(request, "Email o contraseña incorrectos.")
+            return render(request, "tareas/inicio.html", {"form": form})
+
+        login(request, user_auth)
+        return redirect("inicio_usuario", usuario_id=user_auth.id_usuario)
+
+    return render(request, "tareas/inicio.html", {"form": form})
+
+# =========================
+# Vista de inicio de usuario tras validar e-mail y contraseña
+# =========================
+
+
+def inicio_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id_usuario=usuario_id)
+    return render(request, "tareas/usuario.html", {"usuario": usuario})

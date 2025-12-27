@@ -436,3 +436,19 @@ class CrearTareaGrupalForm(forms.Form):
 
 
 
+#=================================
+# Formulario validar usuario
+#=================================
+class ValidarUsuarioForm(forms.Form):
+    email = forms.EmailField(label="Email", max_length=100)
+    password = forms.CharField(
+        label="Contraseña",
+        widget=forms.PasswordInput
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        password = cleaned_data.get("password")
+
+        return cleaned_data

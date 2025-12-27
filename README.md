@@ -122,7 +122,7 @@ Ajusto htmls para mejor visualización de los datos
 
 ### 27/12/25
 
-[] Hacer merge a Desarrollo y guardar todo lo que tengo ahí
+[X] Hacer merge a Desarrollo y guardar todo lo que tengo ahí
 
 [] Validar email-contraseña para visualizar todo al respecto del usuario
 
