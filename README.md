@@ -23,60 +23,18 @@ Formularios
 
 Clonamos repositorio tarea 3 DWES, y lo añadomos al repositorio tema 4, para la práctica 4.
 
-Creo esta rama para hacer pruebas gordas sin tener miedo de romper todo.
+Creo rama Pruebas para hacer pruebas gordas sin tener miedo de romper todo.
 
 He probado ha crear los modelos y una vista en esta rama (Desarrollo), lo he hecho mal tenia mal planteado el ER.
 
-Tengo que darle una vuelta, además creo la rama pruebas para hacer el bruto ahí.
-
-### 14/12/25
-
-Conectamos con base de datos y probamos el modelo usuario
-
-Conseguimos hacer un modelo usuario
-
-Conseguimos una pequeña lista y funciona
-
-### 15/12/25
-
-Vamos ha hacer unos cambios para pulir el modelo usuario
-
-Hago un formulario, la vista, la url y la template
-
-Me cargo la base de datos y la conexion en DBeaver, perfecto.
-
 ### 16/12/25
-
-Darío arregla la conexión a postgre
-
-Hago migraciones y conecto con la base de datos
-
-Consigo hacer funcionar el formulario, guarda datos
-
-Consigo traer de la base de datos la lista de usuarios
-
-Pulo cosas del front, y añado página de inicio en /tareas
 
 Merge con Desarrollo para tener en pruebas todo y seguir trabajando
 
-### 17/12/25
-
-Hago los modelos en la rama pruebas y empiezo la view de  buscar_dni
-
-### 18/12/25
-
-Acabo view buscar_dni, sigo con ver_tareas_por_dni
-
-Migro los modelos a bd pruebas
-
-Y vista funcionando tanto con alumno como con profesor para ver tareas asignadas o 
-que necesitan validacion de u profesor
 
 ### 19/12/25
 
-Vista para datos personales hecha
-
-Hago formulario para crear tarea individual, falta si es evaluable tengo que añadir algo más
+Todo funciona en pruebas hago merge con esta rama y guardo todo antes de seguir trabajando en pruebas
 
 ### 20/12/25
 
@@ -92,33 +50,12 @@ Elimino errores 404 y los cambio por mensajes
 
 ### 23/12/25
 
-Ajusto formularios para que actualicen datos en tabla entregas
-
-creo vista para ver las entregas y el estado en el que se encuentran
-
-creo vista para realizar entrega y que actualice la bd 
-
-falta aplicar las validaciones de tareas
-
-falta en buscar tareas asignadas arreglar los mensajes que salen
-
-### 24/12/25
-
-validaciones aplicadas
-
-se arregla los mensajes en buscar tareas asignadas
-
-quitare del modelo final los comentarios en la entrega
-
-hay que arreglar los mensajes que se quedan en la pagina y no se van al crear tareas, y revisar y hay mas fallos
-
-Mejoro comportamiento de validaciones ahora se marca como validada en evaluable cuando un profesor valida
+Merge con rama Pruebas, guardo todo lo que tengo funcionando
 
 ### 26/12/25
 
-Añado comentarios en views y en formularios faltan en models
+Merge con rama Pruebas, guardo todos los avances antes de continuar.
 
-Ajusto htmls para mejor visualización de los datos
 
 ### 27/12/25
 
