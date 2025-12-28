@@ -76,11 +76,12 @@ class TareaGrupal(models.Model):
 #Modelo Tarea Evaluable
 
 class TareaEvaluable(models.Model):
+   
    tarea = models.OneToOneField(Tarea,on_delete=models.CASCADE,related_name='evaluable')
    requiere_validacion_profesor = models.BooleanField(default=True)
-   puntuacion_maxima = models.PositiveIntegerField(default=10)# este va fuera, deberia ir en tabla evaluacion
+   
    validada = models.BooleanField(default=False) 
-   validada_por = models.ForeignKey( #tendre que cambiar esto por validar_por
+   validada_por = models.ForeignKey( 
         Usuario,
         on_delete=models.SET_NULL,
         null=True,
@@ -120,7 +121,7 @@ class Entrega(models.Model):
         limit_choices_to={'rol': 'profesor'}
     )
     fecha_validacion = models.DateTimeField(null=True, blank=True)
-    comentarios_profesor = models.TextField(null=True, blank=True)# este hay que quitarlo en la bd final seria para una tabla de evaluacion
+    #comentarios_profesor = models.TextField(null=True, blank=True) este hay que quitarlo en la bd final seria para una tabla de evaluacion
 
 # Restricción para que solo haya una entrega por alumno
     class Meta:

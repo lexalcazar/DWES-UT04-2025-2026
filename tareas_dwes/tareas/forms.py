@@ -168,7 +168,7 @@ class CrearTareaIndividualForm(forms.Form):
      # Indica si la tarea requiere validación por parte de un profesor
 
     evaluable = forms.BooleanField(
-        label="¿Requiere validación de profesor?",
+        label="Evaluable (en caso afirmativo, el creador debe ser profesor)",
         required=False
     )
     # =========================
@@ -340,7 +340,7 @@ class CrearTareaGrupalForm(forms.Form):
     )
     # Checkbox que indica si la tarea requiere validación de un profesor
     evaluable = forms.BooleanField(
-        label="¿Requiere validación de profesor?",
+        label="Evaluable (en caso afirmativo, el creador debe ser profesor)",
         required=False
     )
 

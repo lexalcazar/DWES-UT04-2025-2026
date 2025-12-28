@@ -21,7 +21,7 @@ def tareas_index(request):
 
 
 # =========================
-# LISTADO DE USUARIOS (CBV)
+# LISTADO DE USUARIOS 
 # =========================
 # Muestra usuarios filtrando por rol.
 
@@ -88,7 +88,7 @@ def buscar_usuario(request):
 
 
 # =========================
-# BUSCAR DNI (REDIRECCIONADOR)
+# FILTRAR DNI (REDIRECCIONADOR)
 # =========================
 # Según rol, redirige a "mis_tareas" (alumno) o "validaciones" (profesor).
 
