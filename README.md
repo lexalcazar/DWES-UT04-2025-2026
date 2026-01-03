@@ -44,7 +44,7 @@ La rama main incluye el proyecto completamente funcional, con el modelo de datos
 
 - Git para control de versiones
 
-## Puesta eb marcha del proyecto
+## Puesta en marcha del proyecto
 
 - Se clona el proyecto de la tarea 3
 
