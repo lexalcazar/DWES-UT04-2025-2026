@@ -56,7 +56,7 @@ class TareaIndividual(models.Model):
 
     def __str__(self):
         if self.alumno_asignado:
-            return f"{self.titulo} - {self.alumno_asignado}"
+            return f"{self.tarea.titulo} - {self.alumno_asignado}"
         return self.titulo
     
 # Modelo tarea Grupal
@@ -70,7 +70,7 @@ class TareaGrupal(models.Model):
     )
 
     def __str__(self):
-        return f"{self.titulo} (Grupal)"
+        return f"{self.tarea.titulo} (Grupal)"
 
 
 #Modelo Tarea Evaluable

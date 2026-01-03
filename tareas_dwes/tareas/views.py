@@ -182,22 +182,6 @@ def validacion_profesor(request, dni):
     )
 
 
-# =========================
-# BUSCAR DATOS PERSONALES POR DNI
-# =========================
-
-def buscar_datos(request):
-    if request.method == "POST":
-        dni = (request.POST.get("dni") or "").strip().upper()
-
-        usuario = Usuario.objects.filter(dni=dni).first()
-        if not usuario:
-            messages.error(request, "No existe ningún usuario con ese DNI.")
-            return render(request, "tareas/buscar_datos_personales.html", {"dni": dni})
-
-        return redirect("mis_datos", dni=dni)
-
-    return render(request, "tareas/buscar_datos_personales.html")
 
 
 # =========================
